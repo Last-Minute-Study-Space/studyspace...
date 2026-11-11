@@ -1,0 +1,1979 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Mining & Academic Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0b0f19;
+            --bg-secondary: #111827;
+            --bg-card: #1f2937;
+            --bg-hover: #374151;
+            --accent-cyan: #06b6d4;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --accent-pink: #ec4899;
+            --accent-green: #10b981;
+            --accent-yellow: #f59e0b;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: #1f2937;
+            --card-border: #374151;
+            --glass-bg: rgba(31, 41, 55, 0.7);
+            --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.15);
+        }
+
+        /* وضع النهار الهادي والمريح جداً للعين (Soft & Relaxing Light Theme) */
+        /* Warm, low-contrast daylight palette */
+        .light-theme {
+            --bg-primary: #f3f1ec;
+            --bg-secondary: #d8d1bd;
+            --bg-card: #d7ceb3;
+            --bg-hover: #d8d4c7;
+            --accent-cyan: #568b91;
+            --accent-blue: #3b699b;
+            --accent-purple: #6f50a5;
+            --accent-pink: #bd2f4b;
+            --accent-green: #729783;
+            --accent-yellow: #b69a68;
+            --text-main: #3d698d;
+            --text-muted: #47626f;
+            --border-color: #cbc3ac;
+            --card-border: #d9d0ba;
+            --glass-bg: rgba(211, 200, 173, 0.94);
+            --shadow-glow: 0 3px 14px rgba(75, 75, 65, 0.045);
+        }
+
+        .bank-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+            margin: 0 0 16px;
+        }
+        .bank-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 16px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            font-weight: 700;
+        }
+        .bank-note { color: var(--text-muted); font-size: .9rem; }
+        .bank-frame-wrap {
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            background: var(--bg-card);
+            box-shadow: var(--shadow-glow);
+        }
+        .bank-frame { display: block; width: 100%; height: 78vh; min-height: 560px; border: 0; background: #fff; }
+        @media (max-width: 700px) {
+            header { padding: 16px 18px; }
+            main { padding: 24px 16px; }
+            .bank-frame { height: 70vh; min-height: 460px; }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand-logo {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: white;
+            font-size: 1.3rem;
+            box-shadow: var(--shadow-glow);
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 9px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent-cyan);
+            background: var(--bg-hover);
+        }
+
+        nav {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            padding: 10px 22px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            color: var(--accent-cyan);
+            background: var(--bg-hover);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+        }
+
+        main {
+            flex: 1;
+            padding: 35px 40px;
+            max-width: 1350px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            margin-bottom: 30px;
+            border-left: 4px solid var(--accent-cyan);
+            padding-left: 16px;
+        }
+
+        .section-header h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 4px;
+        }
+
+        .lecture-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .lecture-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 18px 20px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .lecture-btn.active {
+            border-color: var(--accent-cyan);
+            box-shadow: var(--shadow-glow);
+            background: var(--bg-hover);
+        }
+
+        .lecture-btn:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .lecture-btn .lec-number {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+        }
+
+        .lecture-btn .lec-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .summary-card-container {
+            display: none; /* لا يظهر الملخص إلا عند الضغط حصرياً */
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: var(--shadow-glow);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .summary-card-container.visible {
+            display: block;
+        }
+
+        .summary-card-container h3 {
+            color: var(--accent-cyan);
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+        }
+
+        .summary-card-container ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .summary-card-container ul li {
+            padding: 14px 18px;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            line-height: 1.6;
+            font-size: 0.98rem;
+        }
+
+        .quiz-bank-meta {
+            margin: 0 0 18px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            background: var(--bg-secondary);
+            color: var(--text-muted);
+            border: 1px solid var(--card-border);
+            font-weight: 700;
+        }
+        .option-btn:disabled { cursor: default; opacity: 1; }
+        .quiz-explanation small { display: inline-block; margin-top: 6px; opacity: .85; }
+
+        .quiz-card {
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 26px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-card h4 {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .option-btn {
+            background: var(--bg-secondary);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 14px 20px;
+            border-radius: 10px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .option-btn:hover {
+            border-color: var(--accent-blue);
+            background: var(--bg-hover);
+        }
+
+        .option-btn.correct {
+            background: rgba(16, 185, 129, 0.15) !important;
+            border-color: var(--accent-green) !important;
+            color: var(--accent-green) !important;
+            font-weight: 700;
+        }
+
+        .option-btn.wrong {
+            background: rgba(236, 72, 153, 0.15) !important;
+            border-color: var(--accent-pink) !important;
+            color: var(--accent-pink) !important;
+        }
+
+        .quiz-explanation {
+            display: none;
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid var(--accent-yellow);
+            padding: 14px 18px;
+            border-radius: 8px;
+            font-size: 0.92rem;
+            color: var(--accent-yellow);
+            margin-top: 15px;
+            line-height: 1.6;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+        }
+
+        .calc-box {
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            padding: 28px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .input-group label {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            font-weight: 600;
+        }
+
+        .input-group input {
+            background: var(--bg-secondary);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            color: white;
+            font-weight: 700;
+            border: none;
+            padding: 13px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 8px;
+            font-size: 0.95rem;
+        }
+
+        .calc-result {
+            margin-top: 18px;
+            padding: 16px;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            font-family: 'Fira Code', monospace;
+            color: var(--accent-green);
+            font-size: 0.92rem;
+            display: none;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            font-size: 0.88rem;
+            margin-top: auto;
+        }
+    
+        .quiz-bank-meta {margin:12px 0 20px;padding:12px 16px;border-radius:12px;background:var(--card-bg);font-weight:700;color:var(--accent-cyan);}
+        .quiz-card {margin:14px 0;padding:18px;border:1px solid var(--border-color);border-radius:14px;background:var(--card-bg);}
+        .quiz-card h4 {line-height:1.55;margin:0 0 14px;}
+        .quiz-options {display:grid;gap:9px;}
+        .option-btn {text-align:left;padding:12px 14px;border:1px solid var(--border-color);border-radius:10px;background:var(--input-bg,transparent);color:var(--text-color);cursor:pointer;}
+        .option-btn:hover:not(:disabled) {border-color:var(--accent-cyan);}
+        .option-btn.correct {background:#d8f5df!important;color:#14532d!important;border:2px solid #22a447!important;}
+        .option-btn.wrong {background:#fee2e2!important;color:#991b1b!important;border:2px solid #dc2626!important;}
+        .option-btn:disabled {cursor:default;opacity:1;}
+        .quiz-explanation {display:none;margin-top:12px;padding:12px;border-radius:10px;background:rgba(34,164,71,.10);line-height:1.5;}
+        .quiz-explanation small {opacity:.85;}
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand">
+            <div class="brand-logo">DM</div>
+            <div>
+                <h1>Data Mining & Academic Hub</h1>
+            </div>
+        </div>
+        <div class="controls">
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <span id="theme-icon">🌙</span>
+                <span id="theme-text">Dark Mode</span>
+            </button>
+        </div>
+    </header>
+
+    <nav>
+        <button class="tab-btn active" onclick="openTab('summary', this)">📌 Lecture Summaries</button>
+        <button class="tab-btn" onclick="openTab('datamining-bank', this)">💡 All Quizzes</button>
+        <button class="tab-btn" onclick="openTab('algo-bank', this)">⚙️ Question Bank</button>
+        <button class="tab-btn" onclick="openTab('midterm', this)">🏦 Midterm & Solvers</button>
+    </nav>
+
+    <main>
+        <!-- TAB 1: SUMMARY WITH CLICK-TO-VIEW REQUIREMENT -->
+        <div id="summary" class="tab-content active">
+            <div class="section-header">
+                <h2>📌 Lecture Summaries</h2>
+                <p>Click on any lecture button below to display its detailed summary.</p>
+            </div>
+
+            <div class="lecture-selector">
+                <button class="lecture-btn" onclick="selectLecture(1)">
+                    <span class="lec-number">Lecture 01</span>
+                    <span class="lec-title">Intro & KDD Process</span>
+                </button>
+                <button class="lecture-btn" onclick="selectLecture(2)">
+                    <span class="lec-number">Lecture 02</span>
+                    <span class="lec-title">Getting to Know Your Data</span>
+                </button>
+                <button class="lecture-btn" onclick="selectLecture(3)">
+                    <span class="lec-number">Lecture 03</span>
+                    <span class="lec-title">Data Cleaning</span>
+                </button>
+                <button class="lecture-btn" onclick="selectLecture(4)">
+                    <span class="lec-number">Lecture 04</span>
+                    <span class="lec-title">Data Transformation & Normalization</span>
+                </button>
+                <button class="lecture-btn" onclick="selectLecture(5)">
+                    <span class="lec-number">Lecture 05</span>
+                    <span class="lec-title">Data Integration & Correlation</span>
+                </button>
+                <button class="lecture-btn" onclick="selectLecture(6)">
+                    <span class="lec-number">Lecture 06</span>
+                    <span class="lec-title">Data Reduction</span>
+                </button>
+            </div>
+
+            <div class="summary-card-container" id="summary-display">
+                <!-- يظهر فقط عند النقر حصرياً -->
+            </div>
+        </div>
+
+        <!-- TAB 2: DATA MINING 68 QUESTIONS BANK -->
+        <div id="datamining-bank" class="tab-content">
+            <div class="section-header">
+                <h2>💡 Data Mining Complete Question Bank (68 Questions)</h2>
+                <p>All questions extracted from Data Mining Question Bank files with full verification[cite: 389].</p>
+            </div>
+
+            <!-- All 68 questions extracted from Data_Mining_Questions (Both Q1 and Q2).pdf -->
+            <div class="quiz-bank-meta">68 questions • Choose an answer to see the correct option.</div>
+            <div class="quiz-card" id="dm1">
+              <h4>1. The correct order in which all sub-processes of data mining execute is</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm1', 0, false)">A. data mining</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm1', 1, true)">B. Preprocessing</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm1', 2, false)">C. evaluation</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (B):</b> Preprocessing.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm2">
+              <h4>2. Predict a value of a given continuous valued variable based on the values of other variables, assuming a linear or nonlinear model of dependency.</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm2', 0, false)">A. Association Rule Discovery</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm2', 1, false)">B. Classification</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm2', 2, false)">C. Clustering</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm2', 3, true)">D. Regression</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (D):</b> Regression.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm3">
+              <h4>3. Examples of interval attributes can be:</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm3', 0, true)">A. Calendar dates</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm3', 1, false)">B. colors</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm3', 2, false)">C. ID Numbers</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (A):</b> Calendar dates.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm4">
+              <h4>4. Data that consists of a collection of records, each of which consists of a fixed set of attributes</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm4', 0, false)">A. Graph Data</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm4', 1, false)">B. Ordered Data</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm4', 2, true)">C. Record Data</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (C):</b> Record Data.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm5">
+              <h4>5. The following activity is a data mining Task: Predicting the future stock price of a company using historical records.</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm5', 0, false)">A. false</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm5', 1, true)">B. true</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (B):</b> true.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm6">
+              <h4>6. Generic graph, a molecule, and webpages are examples of</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm6', 0, true)">A. Graph Data</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm6', 1, false)">B. Matrix Data</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm6', 2, false)">C. Ordered data</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm6', 3, false)">D. Record data</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (A):</b> Graph Data.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm7">
+              <h4>7. Examples of Nominal attributes can be:</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm7', 0, false)">A. Calendar dates</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm7', 1, false)">B. temperatures in celsius or Fahrenheit</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm7', 2, false)">C. phone numbers</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm7', 3, true)">D. ID Numbers</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (D):</b> ID Numbers.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm8">
+              <h4>8. Functions of Data Mining are</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm8', 0, false)">A. Prediction and characterization</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm8', 1, false)">B. Association and correctional analysis classification</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm8', 2, false)">C. Cluster analysis and evolution analysis</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm8', 3, true)">D. All of the above</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (D):</b> All of the above.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm9">
+              <h4>9. The following activity is a data mining Task: Monitoring the heart rate of a patient for abnormalities.</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm9', 0, false)">A. false</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm9', 1, true)">B. true</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (B):</b> true.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm10">
+              <h4>10. The following activity is a data mining Task: Predicting the outcomes of tossing a (fair) pair of dice.</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm10', 0, true)">A. false</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm10', 1, false)">B. true</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (A):</b> false.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm11">
+              <h4>11. The type of a Ratio attribute depends on which of the following properties:</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm11', 0, false)">A. Distinctness &amp; order</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm11', 1, true)">B. Distinctness</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm11', 2, false)">C. order &amp; addition</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (B):</b> Distinctness.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm12">
+              <h4>12. Which of the following is true about outliers</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm12', 0, false)">A. Data points that deviate a lot from normal observations</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm12', 1, false)">B. Can reduce the accuracy of the model</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm12', 2, true)">C. Both A and B</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm12', 3, false)">D. None</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (C):</b> Both A and B.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm13">
+              <h4>13. What are the different types of attributes?</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm13', 0, false)">A. Ordinal</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm13', 1, false)">B. Interval</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm13', 2, false)">C. Nominal</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm13', 3, true)">D. All the above</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (D):</b> All the above.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm14">
+              <h4>14. The following activity is a data mining Task: Dividing the customers of a company according to their gender.</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm14', 0, true)">A. false</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm14', 1, false)">B. true</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (A):</b> false.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm15">
+              <h4>15. is a property or characteristic of an object. E. A and C are true</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm15', 0, false)">A. Variable</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm15', 1, false)">B. An attribute</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm15', 2, false)">C. Record</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm15', 3, true)">D. A and B are true</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (D):</b> A and B are true.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm16">
+              <h4>16. Multiple numbers of data sources get combined in which step of the Knowledge Discovery?</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm16', 0, false)">A. Data Cleaning</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm16', 1, true)">B. Data Integration</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm16', 2, false)">C. Data Selection</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm16', 3, false)">D. Data Transformation</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (B):</b> Data Integration.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm17">
+              <h4>17. are the data objects that don&#x27;t comply with the general model or behaviour of the available data:</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm17', 0, false)">A. Classification</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm17', 1, false)">B. Evolution Analysis</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm17', 2, true)">C. Outlier Analysis</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm17', 3, false)">D. Prediction</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (C):</b> Outlier Analysis.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm18">
+              <h4>18. The type of ordinal attribute depends on which of the following properties:</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm18', 0, true)">A. Distinctness &amp; order</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm18', 1, false)">B. Distinctness</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm18', 2, false)">C. order &amp; addition</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (A):</b> Distinctness &amp; order.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm19">
+              <h4>19. The knowledge discovery process in which several data are combined ______.</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm19', 0, false)">A. Data cleaning</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm19', 1, true)">B. Data integration</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm19', 2, false)">C. Date selection</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm19', 3, false)">D. None of the above</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (B):</b> Data integration.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm20">
+              <h4>20. A dataset can be represented by an m by n matrix</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm20', 0, false)">A. Graph Data</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm20', 1, true)">B. Record data</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm20', 2, false)">C. Ordered data</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm20', 3, false)">D. None</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (B):</b> Record data.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm21">
+              <h4>21. Out of the following, which one is the proper application of data mining?</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm21', 0, false)">A. Risk Management &amp; Corporate Analysis</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm21', 1, false)">B. Fraud Detection</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm21', 2, false)">C. Market Management and Analysis</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm21', 3, true)">D. All of the above</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (D):</b> All of the above.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm22">
+              <h4>22. The following activity is a data mining Task: Sorting a student database based on student identification numbers.</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm22', 0, true)">A. false</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm22', 1, false)">B. true</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (A):</b> false.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm23">
+              <h4>23. Predict a value of a given continuous valued variable based on the values of other variables, assuming a linear or nonlinear model of dependency.</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm23', 0, false)">A. Association Rule Discovery</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm23', 1, false)">B. Classification</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm23', 2, false)">C. Clustering</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm23', 3, true)">D. Regression</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (D):</b> Regression.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm24">
+              <h4>24. Examples of Ordinal attributes can be:</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm24', 0, false)">A. ID Numbers</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm24', 1, true)">B. eye color</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm24', 2, false)">C. zip codes</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (B):</b> eye color.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm25">
+              <h4>25. KDD stands for?</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm25', 0, false)">A. Knowledge Data Definition</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm25', 1, false)">B. Knowledge Data Discovery</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm25', 2, false)">C. Knowledge Definition Data</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm25', 3, true)">D. Knowledge Discovery Database</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (D):</b> Knowledge Discovery Database.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm26">
+              <h4>26. Suppose that the data for analysis includes the attribute grade. The grade values for the data tuples are: 4, 5, 9, 11, 12, 13, 13, 13, 14, 15, 16, 17, 18, 18, 19, 20. What is the median of the data?</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm26', 0, true)">A. 13.5</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm26', 1, false)">B. 13.6</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm26', 2, false)">C. 13.7</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm26', 3, false)">D. 13</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (A):</b> 13.5.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm27">
+              <h4>27. The knowledge discovery process in which several data are combined ______.</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm27', 0, false)">A. Data cleaning</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm27', 1, true)">B. Data integration</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm27', 2, false)">C. Date selection</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm27', 3, false)">D. None of the above</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (B):</b> Data integration.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm28">
+              <h4>28. Examples of interval attributes can be:</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm28', 0, false)">A. The temperature in Kelvin, length, time, counts</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm28', 1, true)">B. Calendar dates, temperatures in celsius or Fahrenheit, phone numbers</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm28', 2, false)">C. Rankings, taste of potato chips, grades, height</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm28', 3, false)">D. ID Numbers, eye color, zip codes</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (B):</b> Calendar dates, temperatures in celsius or Fahrenheit, phone numbers.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm29">
+              <h4>29. Which is the number of nearby neighbours to be used to classify the new record?</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm29', 0, true)">A. KNN</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm29', 1, false)">B. Validation data</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm29', 2, false)">C. Euclidean Distance</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm29', 3, false)">D. All the above</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (A):</b> KNN.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm30">
+              <h4>30. Suppose that the data for analysis includes the attribute grade. The grade values for the data tuples are: 4, 5, 9, 11, 12, 13, 13, 13, 14, 15, 16, 17, 18, 18, 19, 20. What is the mean of the data?</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm30', 0, false)">A. 13</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm30', 1, false)">B. 13.7</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm30', 2, true)">C. 13.6</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm30', 3, false)">D. 13.5</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (C):</b> 13.6.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm31">
+              <h4>31. Numerical measure of how alike two data objects are</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm31', 0, false)">A. Similarity</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm31', 1, false)">B. Dissimilarity</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm31', 2, false)">C. Proximity</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm31', 3, true)">D. A, and C are true</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (D):</b> A, and C are true.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm32">
+              <h4>32. Attributes are a special case of discrete attributes</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm32', 0, true)">A. binary</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm32', 1, false)">B. numeric</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm32', 2, false)">C. unary</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm32', 3, false)">D. none of the above</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (A):</b> binary.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm33">
+              <h4>33. The primary use of data cleaning is</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm33', 0, false)">A. Transformations for correcting the wrong data</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm33', 1, false)">B. Correction of the data inconsistencies</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm33', 2, false)">C. Removing the noisy data</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm33', 3, true)">D. All of the above</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (D):</b> All of the above.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm34">
+              <h4>34. The total categories of functions that are involved in Data Mining are:</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm34', 0, false)">A. 5</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm34', 1, false)">B. 4</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm34', 2, false)">C. 3</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm34', 3, true)">D. 2</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (D):</b> 2.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm35">
+              <h4>35. Where data are transformed or consolidated into forms appropriate for mining by performing summary or aggregation operations</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm35', 0, true)">A. Data transformation</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm35', 1, false)">B. Data mining</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm35', 2, false)">C. Data knowledge</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm35', 3, false)">D. Data integration</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (A):</b> Data transformation.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm36">
+              <h4>36. Multiple numbers of data sources get combined in which step of the Knowledge Discovery?</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm36', 0, false)">A. Data Cleaning</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm36', 1, false)">B. Data Transformation</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm36', 2, true)">C. Data Integration</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm36', 3, false)">D. Data Selection</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (C):</b> Data Integration.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm37">
+              <h4>37. The type of a Ratio attribute depends on which of the following properties:</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm37', 0, false)">A. Distinctness</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm37', 1, true)">B. order &amp; addition</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm37', 2, false)">C. Distinctness &amp; order</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (B):</b> order &amp; addition.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm38">
+              <h4>38. The type of a Nominal attribute depends on which of the following properties:</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm38', 0, false)">A. Distinctness &amp; order</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm38', 1, true)">B. Distinctness</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (B):</b> Distinctness.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm39">
+              <h4>39. The type of ordinal attribute depends on which of the following properties:</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm39', 0, false)">A. order &amp; addition</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm39', 1, false)">B. Distinctness</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm39', 2, true)">C. Distinctness &amp; order</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (C):</b> Distinctness &amp; order.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm40">
+              <h4>40. The difference between Q3-Q1 is (Inter-quartile range: IQR)</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm40', 0, true)">A. True</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm40', 1, false)">B. False</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (A):</b> True.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm41">
+              <h4>41. Examples of Nominal attributes can be:</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm41', 0, false)">A. phone numbers</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm41', 1, false)">B. temperatures in celsius or Fahrenheit</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm41', 2, false)">C. Calendar dates</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm41', 3, true)">D. ID Numbers</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (D):</b> ID Numbers.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm42">
+              <h4>42. The initial steps concerned in the process of knowledge discovery is:</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm42', 0, false)">A. Data Transformation</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm42', 1, false)">B. Knowledge presentation</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm42', 2, false)">C. Data Integration</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm42', 3, true)">D. Data Cleaning</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (D):</b> Data Cleaning.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm43">
+              <h4>43. Functions of Data Mining are</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm43', 0, false)">A. Association and correctional analysis classification</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm43', 1, false)">B. Prediction and characterization</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm43', 2, false)">C. Cluster analysis and evolution analysis</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm43', 3, true)">D. All of the above</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (D):</b> All of the above.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm44">
+              <h4>44. Divides the range into N intervals, each containing approximately same number of samples is Equal-depth (frequency) partitioning?</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm44', 0, false)">A. False</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm44', 1, true)">B. True</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (B):</b> True.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm45">
+              <h4>45. Predict a value of a given continuous valued variable based on the values of other variables, assuming a linear or nonlinear model of dependency.</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm45', 0, false)">A. Association Rule Discovery</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm45', 1, false)">B. Classification</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm45', 2, false)">C. Clustering</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm45', 3, true)">D. Regression</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (D):</b> Regression.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm46">
+              <h4>46. The type of ordinal attribute depends on which of the following properties:</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm46', 0, true)">A. Distinctness &amp; order</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm46', 1, false)">B. Distinctness</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm46', 2, false)">C. Distinctness, order &amp; addition</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm46', 3, false)">D. None of the above</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (A):</b> Distinctness &amp; order.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm47">
+              <h4>47. Which of the following is generally used in finding hidden structure and patterns in a given unlabelled data?</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm47', 0, false)">A. Supervised learning</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm47', 1, true)">B. Unsupervised learning</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm47', 2, false)">C. Reinforcement learning</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm47', 3, false)">D. None of the above</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (B):</b> Unsupervised learning.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm48">
+              <h4>48. Sort the dataset and partition into equal frequency. This process called</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm48', 0, false)">A. Classification</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm48', 1, false)">B. Regression</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm48', 2, false)">C. Clustering</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm48', 3, true)">D. Binning</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (D):</b> Binning.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm49">
+              <h4>49. If the original data can be reconstructed from the compressed data without any information loss, the data reduction is called lossless</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm49', 0, false)">A. False</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm49', 1, true)">B. True</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (B):</b> True.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm50">
+              <h4>50. The primary use of data cleaning is</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm50', 0, false)">A. Removing the noisy data</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm50', 1, false)">B. Correction of the data inconsistencies</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm50', 2, false)">C. Transformations for correcting the wrong data</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm50', 3, true)">D. All of the above</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (D):</b> All of the above.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm51">
+              <h4>51. Divides the range into N intervals of equal size is Equal-width (distance) partitioning?</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm51', 0, true)">A. True</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm51', 1, false)">B. False</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (A):</b> True.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm52">
+              <h4>52. Data cleaning means removing the inconsistent data or noise and collecting necessary information of a collection of interrelated data.</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm52', 0, true)">A. True</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm52', 1, false)">B. False</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (A):</b> True.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm53">
+              <h4>53. In asymmetric attribute</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm53', 0, false)">A. No value is considered important over other values</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm53', 1, false)">B. Range of values is important</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm53', 2, false)">C. All values are equals</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm53', 3, true)">D. Only non-zero value is important</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (D):</b> Only non-zero value is important.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm54">
+              <h4>54. The middle number between the median and the highest of the data set.</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm54', 0, true)">A. Q3</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm54', 1, false)">B. Q1</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm54', 2, false)">C. IQR</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm54', 3, false)">D. none of the above</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (A):</b> Q3.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm55">
+              <h4>55. Which of the following activities is NOT a data mining task?</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm55', 0, false)">A. Predicting the future stock price of a company using historical records</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm55', 1, false)">B. Monitoring and predicting failures in a hydropower plant</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm55', 2, true)">C. Extracting the frequencies of a sound wave</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm55', 3, false)">D. Monitoring the heart rate of a patient for abnormalities</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (C):</b> Extracting the frequencies of a sound wave.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm56">
+              <h4>56. The data objects that don&#x27;t comply with the general model or behaviour of the available data:</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm56', 0, false)">A. Classification</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm56', 1, false)">B. Evolution Analysis</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm56', 2, true)">C. Outlier Analysis</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm56', 3, false)">D. Prediction</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (C):</b> Outlier Analysis.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm57">
+              <h4>57. Predict a value of a given continuous valued variable based on the values of other variables, assuming a linear or nonlinear model of dependency.</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm57', 0, true)">A. Regression</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm57', 1, false)">B. Classification</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm57', 2, false)">C. Association Rule Discovery</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm57', 3, false)">D. Clustering</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (A):</b> Regression.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm58">
+              <h4>58. Suppose that the data for analysis includes the attribute grade. The grade values for the data tuples are: 4, 5, 9, 11, 12, 13, 13, 13, 14, 15, 16, 17, 18, 18, 19, 20. What is the midrange of the data?</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm58', 0, false)">A. 13</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm58', 1, false)">B. 14</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm58', 2, false)">C. 13.7</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm58', 3, true)">D. 12</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (D):</b> 12.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm59">
+              <h4>59. Attribute construction can help improve accuracy and understanding of structure in high dimensional</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm59', 0, false)">A. False</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm59', 1, true)">B. True</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (B):</b> True.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm60">
+              <h4>60. What are some examples of data quality problems:</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm60', 0, true)">A. Noise and outliers</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm60', 1, false)">B. Duplicate data</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm60', 2, false)">C. Machine volume</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (A):</b> Noise and outliers.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm61">
+              <h4>61. Examples of Nominal attributes can be:</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm61', 0, false)">A. The temperature in Kelvin, length, time, counts</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm61', 1, false)">B. Calendar dates, temperatures in celsius or Fahrenheit, phone numbers</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm61', 2, false)">C. Rankings, taste of potato chips, grades, height</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm61', 3, true)">D. ID Numbers, eye color, zip codes</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (D):</b> ID Numbers, eye color, zip codes.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm62">
+              <h4>62. Numerical measure of how alike two data objects are.</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm62', 0, false)">A. Similarity measure</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm62', 1, false)">B. Dissimilarity measure</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm62', 2, false)">C. Proximity</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm62', 3, true)">D. A, C are true</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (D):</b> A, C are true.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm63">
+              <h4>63. The process of reducing the number of random variables or attributes under consideration.</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm63', 0, false)">A. Numerosity reduction</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm63', 1, true)">B. Dimensionality reduction</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm63', 2, false)">C. Random variables reduction</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm63', 3, false)">D. Filtering of random variables</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (B):</b> Dimensionality reduction.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm64">
+              <h4>64. Predict a value of a given continuous valued variable based on the values of other variables, assuming a linear or nonlinear model of dependency.</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm64', 0, true)">A. Regression</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm64', 1, false)">B. Classification</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm64', 2, false)">C. Clustering</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm64', 3, false)">D. Association Rule Discovery</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (A):</b> Regression.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm65">
+              <h4>65. Techniques replace the original data volume by alternative, smaller forms of data representation.</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm65', 0, false)">A. data compression</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm65', 1, false)">B. data reduction</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm65', 2, true)">C. Numerosity reduction</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm65', 3, false)">D. Dimensionality reduction</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (C):</b> Numerosity reduction.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm66">
+              <h4>66. An attribute has a finite or countably infinite set of values, which may or may not be represented as integers.</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm66', 0, false)">A. continuous</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm66', 1, true)">B. discrete</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm66', 2, false)">C. interval</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm66', 3, false)">D. none of the above</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (B):</b> discrete.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm67">
+              <h4>67. A dataset can be represented by an m by n matrix</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm67', 0, false)">A. Graph Data</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm67', 1, true)">B. Record data</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm67', 2, false)">C. Ordered data</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm67', 3, false)">D. None</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (B):</b> Record data.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+            
+            <div class="quiz-card" id="dm68">
+              <h4>68. Usually, a value higher/lower than 1.5 x IQR</h4>
+              <div class="quiz-options">
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm68', 0, false)">A. mean</button>
+                <button class="option-btn" data-correct="true" onclick="checkAnswer('dm68', 1, true)">B. outlier</button>
+                <button class="option-btn" data-correct="false" onclick="checkAnswer('dm68', 2, false)">C. deviation</button>
+              </div>
+              <div class="quiz-explanation">💡 <b>Correct Answer (B):</b> outlier.<br><small>The source question bank provides the answer but does not include a detailed explanation.</small></div>
+            </div>
+        </div>
+
+        <!-- TAB 3: INTERACTIVE ALGORITHM QUESTION BANK -->
+        <div id="algo-bank" class="tab-content">
+<div class="section-header"><h2>⚙️ Algorithm Question Bank</h2><p>Choose an answer. The marked answer is revealed only after you submit your choice.</p></div>
+<div class="quiz-bank-meta">52 questions • Interactive practice • Source: scanned PDF</div>
+<div class="quiz-card" id="alg1"><h4>1. Predict the cost of an algorithm in terms of resources and performance</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg1',0,false)">B. Space</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg1',1,true)">A. nalysis</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (A):</b> nalysis.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg2"><h4>2. In practice, merge sort beats insertion sort for</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg2',0,false)">A. n&lt;30</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg2',1,false)">B. n&lt;20</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg2',2,true)">C. c. n&gt;30</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (C):</b> c. n&gt;30.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg3"><h4>3. How many passes does an insertion sort algorithm consist of?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg3',0,false)">A. n=</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg3',1,false)">B. n+l</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg3',2,true)">C. c. n-1</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (C):</b> c. n-1.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg4"><h4>4. Merge sort uses which of the following technique to implement sorting?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg4',0,false)">A. Greedy algorithm</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg4',1,false)">B. Backtracking</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg4',2,false)">C. c. Dynamic Programming</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg4',3,true)">D. Divide and Conquer</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> Divide and Conquer.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg5"><h4>5. Which of the following examples represent the worst case input for an insertion sort?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg5',0,false)">A. array in sorted order</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg5',1,true)">B. array sorted in reverse order</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> array sorted in reverse order.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg6"><h4>6. Which of the following is incorrect? Algorithms can be represented</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg6',0,false)">A. as flowcharts</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg6',1,true)">B. as syntax</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> as syntax.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg7"><h4>7. The time factor when determining the efficiency of algorithm is measured by</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg7',0,false)">A. Counting the kilobytes of algorithm</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg7',1,false)">B. Counting the number of statements</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg7',2,true)">C. c. Counting the number of key operations</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (C):</b> c. Counting the number of key operations.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg8"><h4>8. Analyzing of an algorithm involves</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg8',0,false)">A. Evaluating the complexity only</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg8',1,false)">B. alidating the algorithm Only</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg8',2,false)">C. None of these</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg8',3,true)">D. Both Validating the algorithm and Evaluating the Complexity</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> Both Validating the algorithm and Evaluating the Complexity.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg9"><h4>9. How many cases are there under Master’s theorem?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg9',0,false)">A. 5</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg9',1,false)">B. 4</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg9',2,true)">C. c. 3</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (C):</b> c. 3.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg10"><h4>10. f(n) = f(n)) is</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg10',0,false)">A. false</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg10',1,true)">B. true</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> true.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg11"><h4>11. Any algorithm that sorts by exchanging adjacent elements require O(n’) on average</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg11',0,false)">A. false</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg11',1,true)">B. true</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> true.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg12"><h4>12. Ciel) &gt; Eee) ets</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg12',0,false)">A. 0 2cg(n)</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg12',1,true)">C. o(n) 2 fin) 0 &lt;cg(n) &lt; f(n)</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (C):</b> o(n) 2 fin) 0 &lt;cg(n) &lt; f(n).<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg13"><h4>13. Which notation is used in computer science to describe the performance or complexity of an algorithm?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg13',0,false)">A. N-squared Notation</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg13',1,false)">B. Standard Notation</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg13',2,false)">C. c. Scientific Notation</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg13',3,true)">D. Big O Notation</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> Big O Notation.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg14"><h4>14. Which one of the following helps in calculating the shortest amount of time taken for the completion of the algorithm?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg14',0,false)">A. Theta notation</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg14',1,false)">B. Time complexity</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg14',2,false)">C. c. Big-Oh notation</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg14',3,true)">D. Omega notation</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> Omega notation.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg15"><h4>15. means calculating the minimum amount of work required to solve the problem</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg15',0,false)">A. Problem reduction</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg15',1,false)">B. Upper-bound</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg15',2,true)">C. c. Lower—bound</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (C):</b> c. Lower—bound.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg16"><h4>16. What is the correct defination of an algorithm?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg16',0,false)">A. An algorithm is the process of breaking problems</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg16',1,false)">B. An algorithm is a process of baking bread</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg16',2,true)">C. c. An algorithm is a step by step instructions to solve a problem</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (C):</b> c. An algorithm is a step by step instructions to solve a problem.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg17"><h4>17. What does an insertion sort do?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg17',0,false)">A. Separates a list of data into different collections of data which are sorted and gathered back into a list</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg17',1,false)">B. Goes through a list of data a number of times and compares two items that are side</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg17',2,false)">C. Nothing</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg17',3,true)">D. Goes through a list, comparing two items that are side by side, and continues to move one value until it is in the correct place</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> Goes through a list, comparing two items that are side by side, and continues to move one value until it is in the correct place.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg18"><h4>18. O(log n) is?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg18',0,false)">A. constant asymptotic notations</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg18',1,false)">B. quadratic asymptotic notations</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg18',2,true)">C. c. logarithmic asymptotic notations</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (C):</b> c. logarithmic asymptotic notations.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg19"><h4>19. The Theta notation is the formal way to express ..........of an algorithm&#x27;s running time</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg19',0,false)">A. upper bound</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg19',1,false)">B. lower bound</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg19',2,true)">C. c. lower bound and upper bound</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (C):</b> c. lower bound and upper bound.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg20"><h4>20. How many sub arrays does the quick sort algorithm divide the entire array into?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg20',0,false)">A. Three</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg20',1,false)">B. One</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg20',2,false)">C. c. Four</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg20',3,true)">D. Two</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> Two.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg21"><h4>21. Which is the worst method of choosing a pivot element?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg21',0,false)">A. Median-of-three partitioning</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg21',1,false)">B. Random element as pivot (@, Last element as pivot</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg21',2,true)">D. First element as pivot</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> First element as pivot.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg22"><h4>22. What is the sequence after first phase, pivot is first element?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg22',0,false)">A. 6,4, 3) 7, 11, 9, 14, 12</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg22',1,true)">B. 6, 3, 4, 7, 9, 14, 11, 12</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> 6, 3, 4, 7, 9, 14, 11, 12.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg23"><h4>23. True B. false Quick sort is a stable sorting algorithm</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg23',0,false)">A. true</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg23',1,true)">B. false</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> false.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg24"><h4>24. Recursion is a method in which the solution of a problem depends on</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg24',0,false)">A. Smaller instances of different problems</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg24',1,true)">B. Smaller instances of the same problem</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> Smaller instances of the same problem.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg25"><h4>25. Which of the following is not true about QuickSort?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg25',0,false)">A. In-place algorithm</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg25',1,true)">B. Pivot position can be changed</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> Pivot position can be changed.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg26"><h4>26. Which one of the following sorting algorithm is best suited to sort an array of 1 million elements?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg26',0,false)">A. Merge sort</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg26',1,true)">B. Quick sort</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> Quick sort.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg27"><h4>27. In partitioning strategy for quicksort algorthim, we divide the input array into</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg27',0,false)">A. One</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg27',1,false)">B. Two</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg27',2,false)">C. c. Three</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg27',3,true)">D. Four</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> Four.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg28"><h4>28. Which of the following sorting algorithms has the best average-case time complexity?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg28',0,false)">A. Bubble Sort</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg28',1,true)">B. Merge Sort</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> Merge Sort.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg29"><h4>29. Which sorting algorithm is NOT comparison-based?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg29',0,false)">A. Bubble Sort</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg29',1,false)">B. Quick Sort</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg29',2,false)">C. c. Merge Sort</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg29',3,true)">D. Radix Sort</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> Radix Sort.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg30"><h4>30. In a Quick Sort algorithm, what is the purpose of the pivot?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg30',0,false)">A. To divide the array into two equal halves</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg30',1,false)">B. To merge two sorted arrays</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg30',2,false)">C. To find the maximum element</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg30',3,true)">D. To partition the array around a central value</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> To partition the array around a central value.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg31"><h4>31. What is the best-case time complexity of Insertion Sort?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg31',0,false)">A. O(n42)</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg31',1,true)">B. O(n)</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> O(n).<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg32"><h4>32. Recursion stack Cc. No extra space is required jb In-place sorting nature Which sorting algorithm is used in the Timsort algorithm, commonly used in Python&#x27;s sort function?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg32',0,false)">A. Heap Sort and Radix Sort</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg32',1,false)">B. Selection Sort and Insertion Sort</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg32',2,false)">C. Quick Sort and Bubble Sort</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg32',3,true)">D. ! Merge Sort and Insertion Sort</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> ! Merge Sort and Insertion Sort.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg33"><h4>33. What is the average-case time complexity of Merge Sort?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg33',0,false)">A. O(log n)</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg33',1,false)">B. O(n)</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg33',2,true)">C. c. O(n log n)</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (C):</b> c. O(n log n).<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg34"><h4>34. Which type of algorithm is Merge Sort?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg34',0,false)">A. Backtracking</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg34',1,false)">B. Greedy algorithm (ee Dynamic programming</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg34',2,true)">D. Divide and conquer</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> Divide and conquer.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg35"><h4>35. In Merge Sort, how many sub-arrays are created during each recursion level?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg35',0,false)">A. n</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg35',1,true)">B. 2</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> 2.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg36"><h4>36. During the Merge Sort process, how are elements merged?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg36',0,false)">A. Sorted in ascending order from largest to smallest</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg36',1,false)">B. Sorted in descending order from smallest to largest</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg36',2,true)">C. c. Two sorted sub-arrays are combined into one sorted array</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (C):</b> c. Two sorted sub-arrays are combined into one sorted array.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg37"><h4>37. What is the worst-case time complexity of Insertion Sort?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg37',0,false)">A. O(n)</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg37',1,true)">B. O(n4*2)</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> O(n4*2).<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg38"><h4>38. O(log n) Insertion Sort is particularly efficient for</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg38',0,false)">A. Large unsorted arrays</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg38',1,false)">B. Arrays with duplicate values</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg38',2,false)">C. Large arrays with random values</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg38',3,true)">D. Partially sorted arrays</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> Partially sorted arrays.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg39"><h4>39. O(log n) In Insertion Sort, how does the algorithm insert each element?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg39',0,false)">A. By swapping elements into place</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg39',1,true)">B. By comparing with each element in the sorted part to find its correct position</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> By comparing with each element in the sorted part to find its correct position.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg40"><h4>40. What is the best-case scenario for Insertion Sort?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg40',0,false)">A. When the array is partially sorted</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg40',1,true)">B. When the array has distinct elements GC. When the array is already sorted</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> When the array has distinct elements GC. When the array is already sorted.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg41"><h4>41. Which of the following statements is TRUE about Merge Sort and Insertion Sort?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg41',0,false)">A. Insertion Sort is a divide and conquer algorithm, while Merge Sort is not</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg41',1,false)">B. Both have an average-case time complexity of O(n*2)</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg41',2,true)">C. Merge Sort is faster for large datasets, while Insertion Sort is faster for small datasets</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (C):</b> Merge Sort is faster for large datasets, while Insertion Sort is faster for small datasets.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg42"><h4>42. If an array is nearly sorted, which sorting algorithm would likely outperform the other?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg42',0,false)">A. Merge Sort will outperform Insertion Sort</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg42',1,false)">B. Neither can handle nearly sorted arrays</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg42',2,false)">C. c. Both have similar performance</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg42',3,true)">D. F Insertion Sort will outperform Merge Sort</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> F Insertion Sort will outperform Merge Sort.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg43"><h4>43. Which of the following notations gives the tightest bound for an algorithm&#x27;s complexity?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg43',0,false)">A. Big-Omega notation</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg43',1,false)">B. Big-Q notation</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg43',2,false)">C. Big-O notation</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg43',3,true)">D. Big-O notation</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> Big-O notation.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg44"><h4>44. Which of the following notations gives the tightest bound for an algorithm&#x27;s complexity?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg44',0,false)">A. Big-Omega notation</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg44',1,false)">B. Big-O notation</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg44',2,true)">C. Big-© notation</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (C):</b> Big-© notation.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg45"><h4>45. Which statement is true about Big- notation?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg45',0,false)">A. It represents the upper bound only</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg45',1,false)">B. It represents the lower bound only</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg45',2,true)">C. c. It represents both the upper and lower bounds, giving a tight bound</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (C):</b> c. It represents both the upper and lower bounds, giving a tight bound.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg46"><h4>46. If an algorithm has a time complexity of O(n log n), it means</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg46',0,false)">A. The algorithm has a worst-case complexity of (n log n)</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg46',1,true)">B. The algorithm&#x27;s time complexity is bounded by n log n in both the upper and lower bounds</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> The algorithm&#x27;s time complexity is bounded by n log n in both the upper and lower bounds.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg47"><h4>47. O(log n) algorithm Cc. An O(n) algorithm jel An O(1) algorithm In the notation O(f(n)), what does f(n) represent?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg47',0,false)">A. The actual runtime of the algorithm</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg47',1,true)">B. A function that provides an upper bound for the algorithm’s growth rate</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> A function that provides an upper bound for the algorithm’s growth rate.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg48"><h4>48. If an algorithm has a best-case complexity of Q(n) and a worst-case complexity of O(n 2), what can we infer about its average-case complexity?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg48',0,false)">A. It must be © (n’2)</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg48',1,false)">B. It must be © (n)</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg48',2,true)">C. It could be between Q (n) and O(n*2)</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (C):</b> It could be between Q (n) and O(n*2).<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg49"><h4>49. Which of the following asymptotic notations is NOT commonly used?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg49',0,false)">A. Big-O notation</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg49',1,false)">B. Big-O notation</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg49',2,false)">C. c. Big-Q notation</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg49',3,true)">D. » Big-¥’ notation</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> » Big-¥’ notation.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg50"><h4>50. If (n)=O(g(n)) and g(n)=O(h(n)), which of the following is true?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg50',0,false)">A. f(n)=O(g(n))</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg50',1,true)">B. {(n)=O(h(n))</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> {(n)=O(h(n)).<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg51"><h4>51. In the equation T(n)=4T(n/2)+n, what is the asymptotic complexity according to the Master Theorem?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg51',0,false)">A. O(n log n)</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg51',1,false)">B. O(n’2) eg O(log n)</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg51',2,true)">D. O(nlog24)</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> O(nlog24).<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="alg52"><h4>52. Which of the following best represents the growth rate of f(n)=n log n compared to g(n) = n 2?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg52',0,false)">A. Both are asymptotically equivalent</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('alg52',1,false)">B. None of the above</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('alg52',2,true)">C. f(n)=O(g(n))</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (C):</b> f(n)=O(g(n)).<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+        </div>
+
+        <!-- TAB 4: MIDTERM & CALCULATORS -->
+        <div id="midterm" class="tab-content">
+            <div class="section-header">
+                <h2>🏦 Midterm Solvers & Calculators</h2>
+                <p>Interactive tools for Min-Max Scaling and Node Impurity measures.</p>
+            </div>
+
+<div class="section-header"><h2>📝 Interactive Midterm Question Bank</h2><p>Choose an answer. The marked answer is revealed only after you submit your choice.</p></div>
+<div class="quiz-bank-meta">47 questions • Interactive practice • Source: scanned PDF</div>
+<div class="quiz-card" id="mid1"><h4>1. Normalization is used to</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid1',0,false)">A. Convert categorical data into numerical values</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid1',1,false)">B. Group similar data points together</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid1',2,true)">C. Scale numerical data to a specific range (@) — ui</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (C):</b> Scale numerical data to a specific range (@) — ui.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid2"><h4>2. Data that consists of a collection of records, each of which consists of a fixed set of attributes se</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid2',0,false)">A. Graph Data</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid2',1,false)">B. Ordered Data</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid2',2,true)">C. Record Data</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (C):</b> Record Data.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid3"><h4>3. USUally, a value higher/lower than 1.5 x QR</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid3',0,false)">A. mean</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid3',1,false)">B. deviation</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid3',2,true)">C. outlier</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (C):</b> outlier.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid4"><h4>4. The primary use of data cleaning is</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid4',0,false)">A. Transformations for correcting the wrong data _—_———</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid4',1,false)">B. Correction of the data —</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid4',2,false)">C. Removing the noisy data</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid4',3,true)">D. All of the above</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> All of the above.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid5"><h4>5. The type of a Nominal attribute depends on which of the following properties</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid5',0,false)">A. Distinctness &amp; order</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid5',1,true)">B. Distinctness \/</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> Distinctness \/.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid6"><h4>6. Numerical measure of how alike two data objects are</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid6',0,false)">A. Similarity aa</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid6',1,false)">B. Dissimilarity —“</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid6',2,false)">C. c Proximity</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid6',3,true)">D. A, and C are true</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> A, and C are true.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid7"><h4>7. (ia Gee rs - SS</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid7',0,false)">A. Combining multiple datasets into one</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid7',1,true)">B. Reducing the number of attributes in a dataset</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> Reducing the number of attributes in a dataset.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid8"><h4>8. The way or ways to detect the inconsistent data</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid8',0,false)">A. numerical computing</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid8',1,true)">B. commerical tools</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> commerical tools.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid9"><h4>9. How to handle the missing values in the dataset?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid9',0,false)">A. fill in the missing data</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid9',1,false)">B. Ignore the tuple</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid9',2,false)">C. c. Binning</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid9',3,true)">D. Both A, and B</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> Both A, and B.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid10"><h4>10. Which of the following is true about outliers</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid10',0,false)">A. Data points that deviate a lot from normal observations</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid10',1,false)">B. Can reduce the accuracy of the model</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid10',2,true)">C. G Both A and B</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (C):</b> G Both A and B.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid11"><h4>11. Which of the following is true about outliers</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid11',0,false)">A. Data points that deviate a lot from normal observations</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid11',1,false)">B. Can reduce the accuracy of the model</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid11',2,true)">C. Both A and B</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (C):</b> Both A and B.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid12"><h4>12. The following activity is a data mining Task: Predicting the outcomes of tossing a (fair) pair of dice</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid12',0,false)">A. true</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid12',1,true)">B. false</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> false.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid13"><h4>13. Which of the following is generally used in finding hidden structure and patterns in a given unlabelled data?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid13',0,false)">A. Supervised learning</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid13',1,true)">B. Unsupervised learning</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> Unsupervised learning.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid14"><h4>14. The initial steps concerned in the process of knowledge discovery is</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid14',0,false)">A. Data Integration</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid14',1,true)">B. Data Cleaning</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> Data Cleaning.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid15"><h4>15. Numerical measure of how alike two data objects are</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid15',0,false)">A. ‘@ Similarity measure</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid15',1,false)">B. Dissimilarity measure</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid15',2,false)">C. &amp; Proximity</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid15',3,true)">D. A, C are true</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> A, C are true.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid16"><h4>16. What are the different types of attributes?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid16',0,false)">A. Nominal</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid16',1,false)">B. Ordinal</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid16',2,false)">C. c. interval</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid16',3,true)">D. All the above</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> All the above.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid17"><h4>17. Out of the following, which one is the proper application of data mining?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid17',0,false)">A. Fraud Detection LL</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid17',1,false)">B. Market Management and Analysis</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid17',2,false)">C. c. Risk Management &amp; Corporate Analysis</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid17',3,true)">D. All of the above</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> All of the above.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid18"><h4>18. Functions of Data Mining are</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid18',0,false)">A. Association and correctional analysis classification</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid18',1,false)">B. Prediction and characterization</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid18',2,false)">C. Cluster analysis and evolution analysis</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid18',3,true)">D. All of the above</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> All of the above.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid19"><h4>19. Examples of interval attributes can be</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid19',0,false)">A. ID Numbers, eye color, zip codes</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid19',1,false)">B. Rankings, taste of potato chips, grades, height</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid19',2,true)">C. Calendar dates, temperatures in celsius or Fahrenheit, phone numbers</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (C):</b> Calendar dates, temperatures in celsius or Fahrenheit, phone numbers.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid20"><h4>20. Data Preprocessing is</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid20',0,false)">A. the process of getting the data from its raw format into something suitable for more conventional analytics. ——_—_———</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid20',1,false)">B. the main area where data scientists need skills that a traditional statistician or analyst doesn&#x27;t have. NN</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid20',2,false)">C. c. used to enhancement the data quality</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid20',3,true)">D. All the above</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> All the above.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid21"><h4>21. How to handle the noisy) values in the dataset?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid21',0,false)">A. go Binning</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid21',1,false)">B. ’ Regression</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid21',2,false)">C. c r) Clustering</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid21',3,true)">D. All the above</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> All the above.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid22"><h4>22. Which of these is correct about data mining?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid22',0,false)">A. It is a procedure in which knowledge is mined from data</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid22',1,false)">B. It involves processes like Data Transformation, Data Integration, Data Cleaning</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid22',2,false)">C. c. Itis a procedure using which one can extract information out of huge sets of data</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid22',3,true)">D. All of the above</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> All of the above.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid23"><h4>23. Examples of Ordinal attributes can be</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid23',0,false)">A. ID Numbers, eye color, zip codes</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid23',1,true)">B. Rankings, taste of potato chips, grades, height</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> Rankings, taste of potato chips, grades, height.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid24"><h4>24. The type of a Nominal attribute depends on which of the following properties: ST SSS SSE</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid24',0,false)">A. Distinctness &amp; order</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid24',1,true)">B. Distinctness Va</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> Distinctness Va.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid25"><h4>25. Data Preprocessing is</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid25',0,false)">A. the process of getting the data from its raw format into something suitable for more conventional analytics</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid25',1,false)">B. the main area where data scientists need skills that a traditional statistician or analyst doesn&#x27;t have</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid25',2,false)">C. c. used to enhancement the data quality</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid25',3,true)">D. All the above</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> All the above.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid26"><h4>26. Examples of Ordinal attributes can be</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid26',0,false)">A. ID Numbers, eye color, zip codes</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid26',1,true)">B. Rankings, taste of potato chips, grades, height</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> Rankings, taste of potato chips, grades, height.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid27"><h4>27. The following activity is a data mining Task: Extracting the frequencies of a sound wave</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid27',0,false)">A. true</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid27',1,true)">B. false</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> false.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid28"><h4>28. What are some examples of data quality problems</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid28',0,false)">A. Noise and outliers</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid28',1,false)">B. Duplicate data</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid28',2,false)">C. c. Missing values</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid28',3,true)">D. All of the Above</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> All of the Above.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid29"><h4>29. Numerical measure of how alike two data objects are</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid29',0,false)">A. Similarity measure</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid29',1,true)">B. Dissimilarity measure</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid29',2,false)">C. Proximity</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> Dissimilarity measure.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid30"><h4>30. How to handle the Noisy values in the dataset? SS</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid30',0,false)">A. Binning</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid30',1,false)">B. Regression</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid30',2,false)">C. c. Clustering</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid30',3,true)">D. All the above</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> All the above.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid31"><h4>31. How to handle the missing values in the dataset?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid31',0,false)">A. fill in the missing data</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid31',1,false)">B. Ignore the tuple</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid31',2,false)">C. c. Binning</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid31',3,true)">D. Both A, and B</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> Both A, and B.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid32"><h4>32. Numerical measure of how different two data objects</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid32',0,false)">A. Similarity measure</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid32',1,false)">B. Dissimilarity measure</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid32',2,false)">C. c. Proximity</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid32',3,true)">D. B, C are true</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> B, C are true.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid33"><h4>33. The initial steps concerned in the process of knowledge discovery is: oe</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid33',0,false)">A. Data Integration</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid33',1,true)">B. Data Cleaning</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> Data Cleaning.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid34"><h4>34. The following activity is a data mining Task: Predicting the outcomes of tossing a (fair) pair of dice. EE</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid34',0,false)">A. true</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid34',1,true)">B. false</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> false.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid35"><h4>35. Out of the following, which one is the proper application of data mining?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid35',0,false)">A. Fraud Detection</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid35',1,false)">B. Market Management and Analysis</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid35',2,false)">C. Risk Management &amp; Corporate Analysis</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid35',3,true)">D. All of the above</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> All of the above.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid36"><h4>36. Which of these is correct about data mining?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid36',0,false)">A. Itis a procedure in which knowledge is mined from data</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid36',1,false)">B. It involves processes like Data Transformation, Data Integration, Data Cleaning</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid36',2,false)">C. It is a procedure using which one can extract information out of huge sets of data</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid36',3,true)">D. All of the above</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> All of the above.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid37"><h4>37. How to handle the Noisy values in the dataset?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid37',0,false)">A. Regression</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid37',1,false)">B. Binning</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid37',2,false)">C. c Clustering</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid37',3,true)">D. All the above</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> All the above.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid38"><h4>38. are the data objects that don’t comply with the general model or behaviour of the available data</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid38',0,false)">A. Classification</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid38',1,true)">B. Evolution Analysis (ex Outlier Analysis</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> Evolution Analysis (ex Outlier Analysis.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid39"><h4>39. is the process of reducing the number of random variables or attributes under consideration</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid39',0,false)">A. Random variables reduction</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid39',1,true)">B. ~— Dimensionality reduction</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> ~— Dimensionality reduction.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid40"><h4>40. The correct order in which all sub-processes of data mining execute is</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid40',0,false)">A. data mining</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid40',1,true)">B. Preprocessing IL</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> Preprocessing IL.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid41"><h4>41. Numerical measure of how alike two data objects are</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid41',0,false)">A. Similarity</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid41',1,false)">B. Dissimilarity</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid41',2,false)">C. Proximity</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid41',3,true)">D. A, and C are true</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> A, and C are true.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid42"><h4>42. Functions of Data Mining are</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid42',0,false)">A. Prediction and characterization</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid42',1,false)">B. Association and correctional analysis classification</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid42',2,false)">C. Cluster analysis and evolution analysis</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid42',3,true)">D. Allof the above</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> Allof the above.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid43"><h4>43. KDD stands for?</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid43',0,false)">A. Knowledge Data Definition</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid43',1,false)">B. Knowledge Data Discovery</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid43',2,false)">C. G Knowledge Definition Data</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid43',3,true)">D. Knowledge Discovery Database</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> Knowledge Discovery Database.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid44"><h4>44. The following activity is a data mining Task: Predicting the future stock price of a company using historical records</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid44',0,false)">A. false</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid44',1,true)">B. true</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> true.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid45"><h4>45. Aggregation in data mining involves: SA</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid45',0,false)">D. el ThE ‘A © Combining multiple datasets into one</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid45',1,true)">B. Reducing the number of attributes in a dataset</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (B):</b> Reducing the number of attributes in a dataset.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid46"><h4>46. What are the different types of attributes? Staus Answered</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid46',0,false)">A. Ordinal 8 interval</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid46',1,false)">C. Nominal</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid46',2,true)">D. Aallthe above</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> Aallthe above.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+<div class="quiz-card" id="mid47"><h4>47. Numerical measure of how alike two data objects are Staus: Answered</h4><div class="quiz-options">
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid47',0,false)">A. ‘Similarity</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid47',1,false)">B. Dissimilarity</button>
+<button class="option-btn" data-correct="false" onclick="checkAnswer('mid47',2,false)">C. Proximity</button>
+<button class="option-btn" data-correct="true" onclick="checkAnswer('mid47',3,true)">D. A. and Gare true</button>
+</div><div class="quiz-explanation">✓ <b>Correct Answer (D):</b> A. and Gare true.<br><small>The source PDF marks this answer but does not provide a detailed explanation. Some scanned text may need manual review.</small></div></div>
+
+            <div class="calc-grid">
+                <div class="calc-box">
+                    <h3 style="color: var(--accent-cyan)">🧮 Min-Max Scaler Solver</h3>
+                    <div class="input-group">
+                        <label>Value to transform (v):</label>
+                        <input type="number" id="mm-v" value="73000">
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div class="input-group">
+                            <label>Original Min (min_A):</label>
+                            <input type="number" id="mm-min" value="12000">
+                        </div>
+                        <div class="input-group">
+                            <label>Original Max (max_A):</label>
+                            <input type="number" id="mm-max" value="98000">
+                        </div>
+                    </div>
+                    <button class="action-btn" onclick="calcMinMax()">Compute Min-Max Scale</button>
+                    <div class="calc-result" id="mm-result"></div>
+                </div>
+
+                <div class="calc-box">
+                    <h3 style="color: var(--accent-purple)">🌲 Impurity Measures Solver</h3>
+                    <div class="input-group">
+                        <label>Enter class counts (comma separated, e.g., 5, 5):</label>
+                        <input type="text" id="node-counts" value="5, 5">
+                    </div>
+                    <button class="action-btn" style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));" onclick="calcImpurity()">Compute Entropy & Gini</button>
+                    <div class="calc-result" id="impurity-result"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        Data Mining & Academic Hub • Engineered for Academic Excellence
+    </footer>
+
+    <script>
+        const lectureData = {
+            1: {
+                title: "Lecture 01: Introduction & KDD Process",
+                points: [
+                    "<b>Data Mining:</b> Discovering useful, previously unknown patterns and knowledge from large amounts of data.",
+                    "<b>KDD Process:</b> Data cleaning → Data integration → Data selection → Data transformation → Data mining → Pattern evaluation → Knowledge presentation.",
+                    "<b>Main Tasks:</b> Classification and regression (prediction); clustering, association analysis, and outlier analysis (description)."
+                ]
+            },
+            2: {
+                title: "Lecture 02: Getting to Know Your Data",
+                points: [
+                    "<b>Data Objects:</b> A data set contains objects (also called records, samples, instances, or tuples). Rows represent objects; columns represent attributes.",
+                    "<b>Nominal:</b> Names or categories without order, such as hair color, marital status, occupation, ID numbers, and ZIP codes.",
+                    "<b>Binary:</b> A nominal attribute with two states. It may be symmetric (both outcomes matter equally) or asymmetric (one outcome is more important).",
+                    "<b>Ordinal:</b> Values have a meaningful order, but the distance between consecutive values is unknown; examples include size (small, medium, large) and grades.",
+                    "<b>Interval:</b> Equal-sized units and an order, but no true zero; examples include Celsius/Fahrenheit temperature and calendar dates.",
+                    "<b>Ratio:</b> Has an inherent zero; examples include Kelvin temperature, length, counts, and monetary quantities.",
+                    "<b>Discrete vs. Continuous:</b> Discrete attributes have finite or countable values; continuous attributes can take real-number values.",
+                    "<b>Basic Statistics:</b> Mean, median, mode, quartiles, IQR, five-number summary, variance, and standard deviation describe central tendency and spread.",
+                    "<b>Similarity & Dissimilarity:</b> Similarity increases as objects become more alike; dissimilarity (distance) decreases as objects become more alike."
+                ]
+            },
+            3: {
+                title: "Lecture 03: Data Cleaning",
+                points: [
+                    "<b>Why Clean Data?</b> Real-world data may be incomplete, noisy, or inconsistent because of faulty instruments, human/computer errors, or transmission problems.",
+                    "<b>Data Quality:</b> Accuracy, completeness, consistency, timeliness, believability, and interpretability.",
+                    "<b>Incomplete Data:</b> Some attribute values may be missing. The lecture lists ignoring the tuple (often when the class label is missing), manual filling, or automatic filling.",
+                    "<b>Automatic Missing-Value Methods:</b> Use a global constant such as “unknown”, the attribute mean or median, or the most probable value estimated using methods such as Bayesian inference or a decision tree.",
+                    "<b>Noisy Data:</b> Noise is random error or variance in a measured variable. Possible causes include data collection, entry, and transmission problems.",
+                    "<b>Smoothing Noisy Data:</b> The lecture introduces Binning, Regression, Clustering, and combined computer/human inspection. Clustering can help detect outliers.",
+                    "<b>Binning:</b> Sort values and divide them into bins. Equal-frequency bins contain roughly the same number of values; equal-width bins have the same value-range width.",
+                    "<b>Binning Smoothing:</b> Replace values with the bin mean, bin median, or the closest bin boundary (minimum or maximum).",
+                    "<b>Other Cleaning Problems:</b> Identify duplicate records, incomplete data, inconsistent values, and suspicious outliers."
+                ]
+            },
+            4: {
+                title: "Lecture 04: Data Transformation & Normalization",
+                points: [
+                    "<b>Data Transformation:</b> A preprocessing stage covered in the Chapter 3 slides.",
+                    "<b>Normalization (Scaling):</b> The slides introduce normalization methods for scaling data.",
+                    "<b>Z-Score Normalization:</b> Also called Standard Scaler in the slides.",
+                    "<b>RobustScaler:</b> Listed as a normalization/scaling method in the lecture.",
+                    "<b>Min-Max Normalization:</b> Also called MinMax Scaler in the slides.",
+                    "<b>Decimal-Scaling Normalization:</b> Another normalization method presented in the lecture.",
+                    "<b>Important:</b> The provided slides show these methods and their examples; use the exact formulas and worked examples from the lecture material when solving numerical questions."
+                ]
+            },
+            5: {
+                title: "Lecture 05: Data Integration & Correlation Analysis",
+                points: [
+                    "<b>Data Integration:</b> Merge data from multiple data stores to help reduce redundancies and inconsistencies in the resulting data set.",
+                    "<b>Integration Challenges:</b> Semantic heterogeneity (entity identification), differences in data structure, functional dependencies, referential constraints, and redundancy.",
+                    "<b>Schema Integration & Object Matching:</b> Metadata helps match and combine data correctly.",
+                    "<b>Metadata:</b> Includes attribute name, meaning, data type, permitted value range, and rules for handling blank, zero, or null values.",
+                    "<b>Correlation Analysis for Nominal Data:</b> The lecture uses the Chi-square (χ²) test. A larger χ² value indicates that the variables are more likely to be related.",
+                    "<b>Chi-square Interpretation:</b> Cells contribute more when their observed count differs greatly from the expected count.",
+                    "<b>Correlation Does Not Imply Causality:</b> The slides give hospital count and car-theft count as correlated variables that may both be related to population.",
+                    "<b>Numeric Correlation:</b> Pearson’s correlation coefficient describes direction and strength. Positive values indicate positive correlation; negative values indicate negative correlation; zero indicates no linear correlation in the lecture’s description.",
+                    "<b>Covariance:</b> Also introduced in the numeric-data section."
+                ]
+            },
+            6: {
+                title: "Lecture 06: Data Reduction",
+                points: [
+                    "<b>Data Reduction:</b> Represent the original data using a smaller representation while preserving useful information.",
+                    "<b>Dimensionality Reduction:</b> Reduce the number of attributes. Methods listed include Wavelet Transforms, PCA, and Attribute Subset Selection.",
+                    "<b>Attribute Subset Selection:</b> Find a smaller set of attributes whose resulting data distribution is as close as possible to the distribution using all attributes.",
+                    "<b>Search Strategies:</b> Exhaustive search may be too expensive. The slides describe heuristic (greedy) approaches: stepwise forward selection, stepwise backward elimination, and a combination of both.",
+                    "<b>Attribute Construction:</b> Create a new attribute from existing ones; the slide example creates area from height and width.",
+                    "<b>Numerosity Reduction:</b> Replace the original data volume with a smaller representation.",
+                    "<b>Parametric Methods:</b> Use a model to estimate the data; the slides list Regression.",
+                    "<b>Nonparametric Methods:</b> Store reduced representations; the slides list Histograms, Clustering, and Sampling.",
+                    "<b>Histograms:</b> Divide an attribute’s distribution into buckets/bins. Equal-width bins have uniform ranges; equal-frequency (equal-depth) bins contain roughly the same number of samples.",
+                    "<b>Sampling:</b> Methods include Simple Random Sampling Without Replacement (SRSWOR), Simple Random Sampling With Replacement (SRSWR), Cluster Sampling, and Stratified Sampling.",
+                    "<b>Data Compression:</b> The slides distinguish Lossless and Lossy compression."
+                ]
+            }
+        };
+
+        function selectLecture(lecId) {
+            document.querySelectorAll('.lecture-btn').forEach((btn, idx) => {
+                btn.classList.toggle('active', idx + 1 === lecId);
+            });
+
+            const data = lectureData[lecId];
+            if (!data) return;
+            const display = document.getElementById('summary-display');
+            
+            let html = `<h3>📌 ${data.title}</h3><ul>`;
+            data.points.forEach(pt => {
+                html += `<li>${pt}</li>`;
+            });
+            html += `</ul>`;
+
+            display.innerHTML = html;
+            display.classList.add('visible'); // يظهر الملخص حصرياً عند الضغط
+        }
+
+        function openTab(tabId, button) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            if (button) button.classList.add('active');
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            body.classList.toggle('light-theme');
+            const isLight = body.classList.contains('light-theme');
+            
+            document.getElementById('theme-icon').textContent = isLight ? '☀️' : '🌙';
+            document.getElementById('theme-text').textContent = isLight ? 'Light Mode' : 'Dark Mode';
+        }
+
+        function checkAnswer(qId, optionIdx, isCorrect) {
+            const card = document.getElementById(qId);
+            const buttons = card.querySelectorAll('.option-btn');
+            const exp = card.querySelector('.quiz-explanation');
+
+            buttons.forEach((btn, idx) => {
+                btn.classList.remove('correct', 'wrong');
+                if (btn.dataset.correct === 'true') {
+                    btn.classList.add('correct');
+                }
+                if (idx === optionIdx && !isCorrect) {
+                    btn.classList.add('wrong');
+                }
+                btn.disabled = true;
+            });
+
+            exp.style.display = 'block';
+        }
+
+        function calcMinMax() {
+            const v = parseFloat(document.getElementById('mm-v').value);
+            const minA = parseFloat(document.getElementById('mm-min').value);
+            const maxA = parseFloat(document.getElementById('mm-max').value);
+            const res = ((v - minA) / (maxA - minA));
+            const div = document.getElementById('mm-result');
+            div.style.display = 'block';
+            div.innerHTML = `<b>Scaled Value (v'):</b> ${res.toFixed(4)}`;
+        }
+
+        function calcImpurity() {
+            const raw = document.getElementById('node-counts').value;
+            const counts = raw.split(',').map(x => parseFloat(x.trim())).filter(x => !isNaN(x));
+            const total = counts.reduce((a, b) => a + b, 0);
+            if (total === 0) return;
+            let gini = 1.0;
+            let entropy = 0.0;
+            counts.forEach(c => {
+                let p = c / total;
+                gini -= p * p;
+                if (p > 0) entropy -= p * Math.log2(p);
+            });
+            const div = document.getElementById('impurity-result');
+            div.style.display = 'block';
+            div.innerHTML = `<b>Gini Index:</b> ${gini.toFixed(4)} [cite: ${gini.toFixed(4)}] | <b>Entropy:</b> ${entropy.toFixed(4)} bits`;
+        }
+    </script>
+</body>
+</html>
